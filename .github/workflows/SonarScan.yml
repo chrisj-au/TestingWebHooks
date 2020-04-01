@@ -18,7 +18,7 @@ jobs:
       steps:
       - uses: actions/checkout@master
       - name: SonarQube Scan
-      - uses: warchant/setup-sonar-scanner@v1
+        uses: warchant/setup-sonar-scanner@v1
       - name: SC
         run: sonar-scanner
              -Dsonar.login=${{ secrets.SONAR_TOKEN }}
