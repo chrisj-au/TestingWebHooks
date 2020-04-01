@@ -12,19 +12,12 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  sonarQubeTrigger:
-      name: SonarQube Trigger
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@master
-      - name: SonarQube Scan
-        uses: warchant/setup-sonar-scanner@v1
-      - name: SC
-        env:
-          # to get access to secrets.SONAR_TOKEN, provide GITHUB_TOKEN
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: sonar-scanner
-             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-             -Dsonar.organization=1corp
-             -Dsonar.host.url=https://sonarcloud.io/
-             -Dsonar.projectKey=sonar-scanner-action
+  sonarcloud:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
